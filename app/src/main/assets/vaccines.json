@@ -1,0 +1,258 @@
+{
+  "vaccines": [
+    {
+      "id": "bcg_birth",
+      "age": "Birth",
+      "title": "BCG Vaccine",
+      "why_important": [
+        "Protects against childhood tuberculosis, including TB meningitis and disseminated disease"
+      ],
+      "what_to_expect": [
+        "0.05 ml injection into right upper arm within the first week (ideally within 24 hours)",
+        "May cause a small red bump at the injection site"
+      ],
+      "tips": [
+        "Always bring the child's vaccine card to the clinic",
+        "No fasting required; breastfeeding can continue immediately"
+      ]
+    },
+    {
+      "id": "opv0_birth",
+      "age": "Birth",
+      "title": "Oral Polio Vaccine (Polio‑0)",
+      "why_important": [
+        "Provides early protection against poliovirus to prevent paralysis"
+      ],
+      "what_to_expect": [
+        "Two drops orally—no injection needed",
+        "Very rare risk of vaccine‑associated paralytic polio in immunodeficient infants"
+      ],
+      "tips": [
+        "Breastfeeding before and after the dose is fine",
+        "Re-administer once if infant vomits immediately after; do not delay vaccination"
+      ],
+      "sources": ["turn0search0"]
+    },
+    {
+      "id": "pentavalent1_6wks",
+      "age": "6 weeks",
+      "title": "Pentavalent‑1 (DTP‑HepB‑Hib)",
+      "why_important": [
+        "Protects against diphtheria, pertussis, tetanus, hepatitis B, and Hib meningitis"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection in the left thigh",
+        "Possible mild fever or swelling; rare high fever"
+      ],
+      "tips": [
+        "Do not fast the child",
+        "Use separate injection sites if other vaccines are given",
+        "Repeat second and third doses at 10w and 14w"
+      ]
+    },
+    {
+      "id": "opv1_6wks",
+      "age": "6 weeks",
+      "title": "Oral Polio Vaccine (OPV‑1)",
+      "why_important": [
+        "Boosts immunity to polio types 1 and 3 during early infancy"
+      ],
+      "what_to_expect": [
+        "Two oral drops—no injection",
+        "Generally no side effects"
+      ],
+      "tips": [
+        "Can be administered even if child has mild illness",
+        "Give alongside other vaccines during the same visit"
+      ],
+      "sources": ["turn0search0"]
+    },
+    {
+      "id": "pcv1_6wks",
+      "age": "6 weeks",
+      "title": "Pneumococcal Vaccine (PCV‑10 or PCV‑13)",
+      "why_important": [
+        "Protects against pneumonia and meningitis caused by Streptococcus pneumoniae"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection in the right thigh",
+        "Mild fever or fussiness for 1–2 days"
+      ],
+      "tips": [
+        "Complete the series at 6w, 10w and 14w",
+        "Offer oral rehydration if mild fever occurs"
+      ]
+    },
+    {
+      "id": "rota1_6wks",
+      "age": "6 weeks",
+      "title": "Rotavirus Vaccine (Rota‑1)",
+      "why_important": [
+        "Reduces risk of severe diarrhoeal disease, which accounts for ~40 % of childhood deaths in Uganda"
+      ],
+      "what_to_expect": [
+        "Liquid drops given orally",
+        "Possible mild diarrhea, vomiting, or fussiness"
+      ],
+      "tips": [
+        "Administer while child is calm or breastfeeding",
+        "Ensure ≥4 weeks before Rota‑2 dose"
+      ]
+    },
+    {
+      "id": "pentavalent2_10wks",
+      "age": "10 weeks",
+      "title": "Pentavalent‑2 (DTP‑HepB‑Hib)",
+      "why_important": [
+        "Strengthens immunity against diphtheria, pertussis, tetanus, hepatitis B, and Hib"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection; similar mild reactions as Dose 1"
+      ],
+      "tips": [
+        "Ensure exactly 10 weeks since Dose 1",
+        "Record as second dose on vaccine card"
+      ]
+    },
+    {
+      "id": "opv2_10wks",
+      "age": "10 weeks",
+      "title": "Oral Polio Vaccine (OPV‑2)",
+      "why_important": [
+        "Boosts immunity against poliovirus types 1 and 3"
+      ],
+      "what_to_expect": [
+        "Two oral drops; no injection",
+        "Very rare risk of vaccine‑associated paralysis"
+      ],
+      "tips": [
+        "Administer even if the child is mildly unwell",
+        "Given at the same visit as Pentavalent‑2"
+      ],
+      "sources": ["turn0search0"]
+    },
+    {
+      "id": "pcv2_10wks",
+      "age": "10 weeks",
+      "title": "Pneumococcal Vaccine (PCV‑2)",
+      "why_important": [
+        "Reinforces protection against pneumococcal pneumonia and meningitis"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection; mild local reaction possible"
+      ],
+      "tips": [
+        "Complete at 6w, 10w, 14w series",
+        "Provide comfort and fluids after vaccination"
+      ]
+    },
+    {
+      "id": "rota2_10wks",
+      "age": "10 weeks",
+      "title": "Rotavirus Vaccine (Rota‑2)",
+      "why_important": [
+        "Completes protection against severe diarrhoeal disease"
+      ],
+      "what_to_expect": [
+        "Oral drops; possible mild gastrointestinal upset"
+      ],
+      "tips": [
+        "Administer at least 4 weeks after Rota‑1, not earlier",
+        "Ensure child is calm during administration"
+      ]
+    },
+    {
+      "id": "pentavalent3_14wks",
+      "age": "14 weeks",
+      "title": "Pentavalent‑3 (DTP‑HepB‑Hib)",
+      "why_important": [
+        "Final dose ensures full immunity against five key childhood diseases"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection; possible mild fever or irritability"
+      ],
+      "tips": [
+        "Offer paracetamol if fever is high (per local policy)",
+        "Ensure immunization card is updated"
+      ]
+    },
+    {
+      "id": "ipv_14wks",
+      "age": "14 weeks",
+      "title": "Inactivated Polio Vaccine (IPV)",
+      "why_important": [
+        "Boosts immunity against all three poliovirus types and prevents VAPP"
+      ],
+      "what_to_expect": [
+        "0.5 ml intramuscular injection into the thigh; mild soreness possible"
+      ],
+      "tips": [
+        "Administer at same visit as Pentavalent‑3 using a different limb",
+        "Breastfeed before or after dose to soothe baby"
+      ]
+    },
+    {
+      "id": "pcv3_14wks",
+      "age": "14 weeks",
+      "title": "Pneumococcal Vaccine (PCV‑3)",
+      "why_important": [
+        "Completes pneumococcal immunization series in infancy"
+      ],
+      "what_to_expect": [
+        "0.5 ml IM injection; minor fever or pain possible"
+      ],
+      "tips": [
+        "Hydrate the child and encourage gentle feeding",
+        "Mark ‘PCV‑3’ on health card"
+      ]
+    },
+    {
+      "id": "mr1_9months",
+      "age": "9 months",
+      "title": "Measles–Rubella (MR‑1)",
+      "why_important": [
+        "Protects against measles (which can cause blindness/death) and rubella (which causes congenital defects)"
+      ],
+      "what_to_expect": [
+        "0.5 ml subcutaneous injection; mild fever or rash possible"
+      ],
+      "tips": [
+        "Some children may develop a mild rash ~1 week later—normal",
+        "Administered alongside Yellow Fever vaccine on the same visit",
+        "No fasting needed"
+      ]
+    },
+    {
+      "id": "yellowfever_9months",
+      "age": "9 months",
+      "title": "Yellow Fever Vaccine",
+      "why_important": [
+        "Prevents yellow fever, a severe mosquito‑borne disease; one dose gives lifelong protection"
+      ],
+      "what_to_expect": [
+        "0.5 ml subcutaneous injection in the right arm",
+        "May cause fever, headache or muscle ache after 5–10 days"
+      ],
+      "tips": [
+        "Keep the vaccination certificate for travel purposes",
+        "Contraindicated under 9 months or in severe egg allergy",
+        "Free in public clinics since Uganda added it to the routine schedule in 2022"
+      ]
+    },
+    {
+      "id": "mr2_18months",
+      "age": "18 months",
+      "title": "Measles–Rubella #2 (MR‑2)",
+      "why_important": [
+        "Booster for long-term immunity and catch-up for those who didn’t respond to MR‑1"
+      ],
+      "what_to_expect": [
+        "0.5 ml subcutaneous injection; mild fever or rash possible"
+      ],
+      "tips": [
+        "Given during routine preschool immunization visit",
+        "No fasting needed; update vaccine card"
+      ]
+    }
+  ]
+}
