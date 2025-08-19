@@ -5,97 +5,190 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.mamaaid.data.LanguageManager
+import com.example.mamaaid.ui.theme.BackgroundWithImage
+import com.example.mamaaid.ui.theme.BabyBlue
+import com.example.mamaaid.ui.theme.MintGreen
+import com.example.mamaaid.ui.theme.SoftPink
+import com.example.mamaaid.ui.theme.CharcoalGray
+import com.example.mamaaid.ui.theme.White
+import com.example.mamaaid.ui.theme.Typography
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // MamaAid title at the top
-        Text(
-            text = "MamaAid",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        
-        // Dark gray underline with 0.3cm spacing
-        Spacer(modifier = Modifier.height(12.dp)) // 0.3cm ≈ 12dp
-        
+fun HomeScreen(navController: NavController, languageManager: LanguageManager) {
+    BackgroundWithImage {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+        // MamaAid title in a curved corner box with Baby Blue background
         Box(
             modifier = Modifier
-                .width(120.dp)
-                .height(2.dp)
-                .background(Color.DarkGray)
-        )
+                .background(
+                    color = BabyBlue,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = languageManager.getTranslation("app_title"),
+                    style = Typography.headlineLarge,
+                    color = White
+                )
+                
+                // Dark gray underline with 0.3cm spacing
+                Spacer(modifier = Modifier.height(12.dp)) // 0.3cm ≈ 12dp
+                
+                Box(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(2.dp)
+                        .background(Color.DarkGray)
+                )
+            }
+        }
         
-        // Subtitle with 1cm spacing from the line
+        // Subtitle with 1cm spacing from the title box
         Spacer(modifier = Modifier.height(40.dp)) // 1cm ≈ 40dp
         
-        Text(
-            text = "Your pregnancy companion app",
-            fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        // Subtitle in a curved corner box with Mint Green background
+        Box(
+            modifier = Modifier
+                .background(
+                    color = MintGreen,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = languageManager.getTranslation("app_subtitle"),
+                style = Typography.titleMedium,
+                color = CharcoalGray
+            )
+        }
         
         // Another 1cm spacing before the boxes
         Spacer(modifier = Modifier.height(40.dp)) // 1cm ≈ 40dp
         
-        // Two square boxes with rounded corners
+        // Two square boxes with rounded corners and shadows
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            // Mother box
+            // Mother box with Soft Pink background and shadow
             Box(
                 modifier = Modifier
                     .size(120.dp)
+                    .shadow(
+                        elevation = 8.dp,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                     .background(
-                        color = Color(0xFFFFD1E3),
-                        shape = RoundedCornerShape(8.dp)
+                        color = SoftPink,
+                        shape = RoundedCornerShape(12.dp)
                     )
                     .clickable { navController.navigate("mother") },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Mother",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    text = languageManager.getTranslation("mother"),
+                    style = Typography.headlineSmall,
+                    color = CharcoalGray
                 )
             }
             
-            // Child box
+            // Child box with Soft Pink background and shadow
             Box(
                 modifier = Modifier
                     .size(120.dp)
+                    .shadow(
+                        elevation = 8.dp,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                     .background(
-                        color = Color(0xFFFFD1E3),
-                        shape = RoundedCornerShape(8.dp)
+                        color = SoftPink,
+                        shape = RoundedCornerShape(12.dp)
                     )
                     .clickable { navController.navigate("child") },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Child",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    text = languageManager.getTranslation("child"),
+                    style = Typography.titleMedium,
+                    color = CharcoalGray
                 )
             }
         }
+        
+        // 0.5cm spacing before language selection boxes
+        Spacer(modifier = Modifier.height(20.dp)) // 0.5cm ≈ 20dp
+        
+        // Language selection boxes
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            // Luganda language box
+            Box(
+                modifier = Modifier
+                    .size(120.dp, 60.dp) // Thinner height
+                    .shadow(
+                        elevation = 8.dp,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .background(
+                        color = if (languageManager.currentLanguage == "Luganda") SoftPink else SoftPink.copy(alpha = 0.7f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .clickable { languageManager.setLanguage("Luganda") },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = languageManager.getTranslation("luganda"),
+                    style = Typography.titleMedium,
+                    color = CharcoalGray
+                )
+            }
+            
+            // English language box
+            Box(
+                modifier = Modifier
+                    .size(120.dp, 60.dp) // Thinner height
+                    .shadow(
+                        elevation = 8.dp,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .background(
+                        color = if (languageManager.currentLanguage == "English") SoftPink else SoftPink.copy(alpha = 0.7f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .clickable { languageManager.setLanguage("English") },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = languageManager.getTranslation("english"),
+                    style = Typography.titleMedium,
+                    color = CharcoalGray
+                )
+            }
+        }
+    }
     }
 }
 

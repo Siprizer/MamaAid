@@ -19,12 +19,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mamaaid.data.LanguageManager
 import com.example.mamaaid.data.Vaccine
 import com.example.mamaaid.data.VaccineRepository
+import com.example.mamaaid.ui.theme.BackgroundWithImage
+import com.example.mamaaid.ui.theme.BabyBlue
+import com.example.mamaaid.ui.theme.SoftPink
+import com.example.mamaaid.ui.theme.WarmCream
+import com.example.mamaaid.ui.theme.CharcoalGray
+import com.example.mamaaid.ui.theme.White
 import kotlinx.coroutines.launch
 
 @Composable
-fun ChildScreen() {
+fun ChildScreen(languageManager: LanguageManager) {
     val context = LocalContext.current
     val vaccineRepository = remember { VaccineRepository(context) }
     val coroutineScope = rememberCoroutineScope()
@@ -79,30 +86,46 @@ fun ChildScreen() {
         }
     }
     
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    BackgroundWithImage {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Text(
-            text = "Child Care",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-
-        Spacer(modifier = Modifier.height(12.dp)) // 0.3cm ≈ 12dp
-        
+        // Child Care title in a curved corner box with Baby Blue background (matching home page)
         Box(
             modifier = Modifier
-                .width(120.dp)
-                .height(2.dp)
-                .background(Color.DarkGray)
-        )
+                .background(
+                    color = BabyBlue,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = languageManager.getTranslation("child_title"),
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = White
+                )
+                
+                // Dark gray underline with 0.3cm spacing
+                Spacer(modifier = Modifier.height(12.dp)) // 0.3cm ≈ 12dp
+                
+                Box(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(2.dp)
+                        .background(Color.DarkGray)
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(20.dp)) // 0.5cm ≈ 20dp
         
@@ -110,15 +133,19 @@ fun ChildScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFFFFFAB7),
+                    color = BabyBlue,
                     shape = RoundedCornerShape(8.dp)
                 )
                 .padding(16.dp)
         ) {
             Text(
-                text = "Child health after birth includes a series of vaccinations to prevent disease. Uganda's standard immunization schedule requires multiple visits in the first 18 months. These vaccines are free under Uganda’s Ministry of Health and protect children against TB, polio, diphtheria, pertussis, tetanus, hepatitis B, meningitis, pneumonia, rotavirus, measles, and yellow fever.",
+                text = if (languageManager.currentLanguage == "Luganda") {
+                    "Obulamu bw'omwana nga azze kikwatira eddagala ly'okuziyiza okuziyiza endwadde. Emirundi gya Uganda gy'okuziyiza gikyetaaga okukyalira emirundi mingi mu mirundi 18 egisooka. Eddagala lino lya bbeeyi mu Minisitule y'Obulamu ya Uganda era liziyiza abana ku TB, polio, diphtheria, pertussis, tetanus, hepatitis B, meningitis, pneumonia, rotavirus, measles, n'yellow fever."
+                } else {
+                    "Child health after birth includes a series of vaccinations to prevent disease. Uganda's standard immunization schedule requires multiple visits in the first 18 months. These vaccines are free under Uganda's Ministry of Health and protect children against TB, polio, diphtheria, pertussis, tetanus, hepatitis B, meningitis, pneumonia, rotavirus, measles, and yellow fever."
+                },
                 fontSize = 14.sp,
-                color = Color.Black,
+                color = Color.White,
                 lineHeight = 20.sp
             )
         }
@@ -143,7 +170,7 @@ fun ChildScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = Color(0xFFFFFAB7),
+                            color = SoftPink,
                             shape = if (isAtBirthExpanded) RoundedCornerShape(
                                 topStart = 8.dp,
                                 topEnd = 8.dp
@@ -158,16 +185,16 @@ fun ChildScreen() {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "At birth",
+                            text = if (languageManager.currentLanguage == "Luganda") "Nga azze" else "At birth",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = CharcoalGray
                         )
                         
                         Icon(
                             imageVector = if (isAtBirthExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                             contentDescription = if (isAtBirthExpanded) "Collapse" else "Expand",
-                            tint = MaterialTheme.colorScheme.onSurface
+                            tint = CharcoalGray
                         )
                     }
                 }
@@ -178,7 +205,7 @@ fun ChildScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(
-                                color = Color(0xFFFFFAB7),
+                                color = WarmCream,
                                 shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
                             )
                             .padding(16.dp)
@@ -190,7 +217,8 @@ fun ChildScreen() {
                                 VaccineSection(
                                     vaccine = bcgVaccine,
                                     isExpanded = isBcgExpanded,
-                                    onExpandedChange = { isBcgExpanded = it }
+                                    onExpandedChange = { isBcgExpanded = it },
+                                    languageManager = languageManager
                                 )
                             }
                             
@@ -202,72 +230,10 @@ fun ChildScreen() {
                                 VaccineSection(
                                     vaccine = polio0Vaccine,
                                     isExpanded = isPolio0Expanded,
-                                    onExpandedChange = { isPolio0Expanded = it }
+                                    onExpandedChange = { isPolio0Expanded = it },
+                                    languageManager = languageManager
                                 )
-                            } /*else {
-                                // Placeholder for Polio-0 if not found in JSON
-                                Column {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = Color(0xFFFFD1E3),
-                                                shape = if (isPolio0Expanded) RoundedCornerShape(
-                                                    topStart = 8.dp,
-                                                    topEnd = 8.dp
-                                                ) else RoundedCornerShape(8.dp)
-                                            )
-                                            .clickable { isPolio0Expanded = !isPolio0Expanded }
-                                            .padding(12.dp)
-                                    ) {
-                                        Row(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            horizontalArrangement = Arrangement.SpaceBetween,
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Text(
-                                                text = "OPV-0 (oral polio, \"Polio 0\")",
-                                                fontSize = 16.sp,
-                                                fontWeight = FontWeight.Medium,
-                                                color = MaterialTheme.colorScheme.onSurface
-                                            )
-                                            
-                                            Icon(
-                                                imageVector = if (isPolio0Expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                                                contentDescription = if (isPolio0Expanded) "Collapse" else "Expand",
-                                                tint = MaterialTheme.colorScheme.onSurface
-                                            )
-                                        }
-                                    }
-                                    
-                                    // Polio-0 dropdown content (placeholder for JSON data)
-                                    if (isPolio0Expanded) {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .background(
-                                                    color = Color(0xFFFFD1E3),
-                                                    shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
-                                                )
-                                                .padding(12.dp)
-                                        ) {
-                                            Column {
-                                                Text(
-                                                    text = "Vaccine information will be loaded from JSON file",
-                                                    fontSize = 14.sp,
-                                                    color = MaterialTheme.colorScheme.onSurface
-                                                )
-                                                Text(
-                                                    text = "ID: polio_0_birth (to be added to JSON)",
-                                                    fontSize = 12.sp,
-                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
                             }
-                            */
                         }
                     }
                 }
@@ -277,8 +243,8 @@ fun ChildScreen() {
             
             // 6 Weeks section
             VaccinationStageSection(
-                title = "6 weeks",
-                backgroundColor = Color(0xFFFFD1E3),
+                title = if (languageManager.currentLanguage == "Luganda") "Emirundi 6" else "6 weeks",
+                backgroundColor = SoftPink,
                 vaccineData = vaccineData,
                 isExpanded = is6WeeksExpanded,
                 onExpandedChange = { is6WeeksExpanded = it },
@@ -287,15 +253,16 @@ fun ChildScreen() {
                     VaccineInfo("opv1_6wks", "OPV1", isOpv1Expanded) { isOpv1Expanded = it },
                     VaccineInfo("pcv1_6wks", "PCV1 (pneumococcal)", isPcv1Expanded) { isPcv1Expanded = it },
                     VaccineInfo("rota1_6wks", "Rota1 (rotavirus)", isRota1Expanded) { isRota1Expanded = it }
-                )
+                ),
+                languageManager = languageManager
             )
             
             Spacer(modifier = Modifier.height(16.dp))
             
             // 10 Weeks section
             VaccinationStageSection(
-                title = "10 weeks",
-                backgroundColor = Color(0xFFFFD1E3),
+                title = if (languageManager.currentLanguage == "Luganda") "Emirundi 10" else "10 weeks",
+                backgroundColor = SoftPink,
                 vaccineData = vaccineData,
                 isExpanded = is10WeeksExpanded,
                 onExpandedChange = { is10WeeksExpanded = it },
@@ -304,15 +271,16 @@ fun ChildScreen() {
                     VaccineInfo("opv2_10wks", "OPV2", isOpv2Expanded) { isOpv2Expanded = it },
                     VaccineInfo("pcv2_10wks", "PCV2", isPcv2Expanded) { isPcv2Expanded = it },
                     VaccineInfo("rota2_10wks", "Rota2", isRota2Expanded) { isRota2Expanded = it }
-                )
+                ),
+                languageManager = languageManager
             )
             
             Spacer(modifier = Modifier.height(16.dp))
             
             // 14 Weeks section
             VaccinationStageSection(
-                title = "14 weeks",
-                backgroundColor = Color(0xFFFFD1E3),
+                title = if (languageManager.currentLanguage == "Luganda") "Emirundi 14" else "14 weeks",
+                backgroundColor = SoftPink,
                 vaccineData = vaccineData,
                 isExpanded = is14WeeksExpanded,
                 onExpandedChange = { is14WeeksExpanded = it },
@@ -321,38 +289,42 @@ fun ChildScreen() {
                     VaccineInfo("opv3_14wks", "OPV3", isOpv3Expanded) { isOpv3Expanded = it },
                     VaccineInfo("ipv_14wks", "IPV (injectable polio booster)", isIpvExpanded) { isIpvExpanded = it },
                     VaccineInfo("pcv3_14wks", "PCV3", isPcv3Expanded) { isPcv3Expanded = it }
-                )
+                ),
+                languageManager = languageManager
             )
             
             Spacer(modifier = Modifier.height(16.dp))
             
             // 9 Months section
             VaccinationStageSection(
-                title = "9 months",
-                backgroundColor = Color(0xFFFFD1E3),
+                title = if (languageManager.currentLanguage == "Luganda") "Emyezi 9" else "9 months",
+                backgroundColor = SoftPink,
                 vaccineData = vaccineData,
                 isExpanded = is9MonthsExpanded,
                 onExpandedChange = { is9MonthsExpanded = it },
                 vaccines = listOf(
                     VaccineInfo("mr1_9months", "Measles–Rubella 1", isMeaslesRubella1Expanded) { isMeaslesRubella1Expanded = it },
                     VaccineInfo("yellowfever_9months", "Yellow Fever", isYellowFeverExpanded) { isYellowFeverExpanded = it }
-                )
+                ),
+                languageManager = languageManager
             )
             
             Spacer(modifier = Modifier.height(16.dp))
             
             // 18 Months section
             VaccinationStageSection(
-                title = "18 months",
-                backgroundColor = Color(0xFFFFD1E3),
+                title = if (languageManager.currentLanguage == "Luganda") "Emyezi 18" else "18 months",
+                backgroundColor = SoftPink,
                 vaccineData = vaccineData,
                 isExpanded = is18MonthsExpanded,
                 onExpandedChange = { is18MonthsExpanded = it },
                 vaccines = listOf(
                     VaccineInfo("mr2_18months", "Measles–Rubella 2", isMeaslesRubella2Expanded) { isMeaslesRubella2Expanded = it }
-                )
+                ),
+                languageManager = languageManager
             )
         }
+    }
     }
 }
 
@@ -370,7 +342,8 @@ fun VaccinationStageSection(
     vaccineData: List<Vaccine>,
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
-    vaccines: List<VaccineInfo>
+    vaccines: List<VaccineInfo>,
+    languageManager: LanguageManager
 ) {
     Column {
         Box(
@@ -395,13 +368,13 @@ fun VaccinationStageSection(
                     text = title,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = CharcoalGray
                 )
                 
                 Icon(
                     imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                     contentDescription = if (isExpanded) "Collapse" else "Expand",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = CharcoalGray
                 )
             }
         }
@@ -412,7 +385,7 @@ fun VaccinationStageSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = backgroundColor,
+                        color = WarmCream,
                         shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
                     )
                     .padding(16.dp)
@@ -424,7 +397,8 @@ fun VaccinationStageSection(
                             VaccineSection(
                                 vaccine = vaccine,
                                 isExpanded = vaccineInfo.isExpanded,
-                                onExpandedChange = vaccineInfo.onExpandedChange
+                                onExpandedChange = vaccineInfo.onExpandedChange,
+                                languageManager = languageManager
                             )
                         } else {
                             // Placeholder for vaccine not found in JSON
@@ -433,7 +407,7 @@ fun VaccinationStageSection(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .background(
-                                            color = Color(0xFF7EA1FF),
+                                            color = BabyBlue,
                                             shape = if (vaccineInfo.isExpanded) RoundedCornerShape(
                                                 topStart = 8.dp,
                                                 topEnd = 8.dp
@@ -451,13 +425,13 @@ fun VaccinationStageSection(
                                             text = vaccineInfo.title,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
-                                            color = MaterialTheme.colorScheme.onSurface
+                                            color = CharcoalGray
                                         )
                                         
                                         Icon(
                                             imageVector = if (vaccineInfo.isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                                             contentDescription = if (vaccineInfo.isExpanded) "Collapse" else "Expand",
-                                            tint = MaterialTheme.colorScheme.onSurface
+                                            tint = CharcoalGray
                                         )
                                     }
                                 }
@@ -467,7 +441,7 @@ fun VaccinationStageSection(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .background(
-                                                color = Color(0xFF7EA1FF),
+                                                color = BabyBlue,
                                                 shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
                                             )
                                             .padding(12.dp)
@@ -476,12 +450,12 @@ fun VaccinationStageSection(
                                             Text(
                                                 text = "Vaccine information will be loaded from JSON file",
                                                 fontSize = 14.sp,
-                                                color = MaterialTheme.colorScheme.onSurface
+                                                color = CharcoalGray
                                             )
                                             Text(
                                                 text = "ID: ${vaccineInfo.id} (to be added to JSON)",
                                                 fontSize = 12.sp,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                                color = CharcoalGray
                                             )
                                         }
                                     }
@@ -503,14 +477,15 @@ fun VaccinationStageSection(
 fun VaccineSection(
     vaccine: Vaccine,
     isExpanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit
+    onExpandedChange: (Boolean) -> Unit,
+    languageManager: LanguageManager
 ) {
     Column {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFF7EA1FF),
+                    color = WarmCream,
                     shape = if (isExpanded) RoundedCornerShape(
                         topStart = 8.dp,
                         topEnd = 8.dp
@@ -528,13 +503,13 @@ fun VaccineSection(
                     text = vaccine.title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = CharcoalGray
                 )
                 
                 Icon(
                     imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                     contentDescription = if (isExpanded) "Collapse" else "Expand",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = CharcoalGray
                 )
             }
         }
@@ -545,7 +520,7 @@ fun VaccineSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = Color(0xFF7EA1FF),
+                        color = WarmCream,
                         shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
                     )
                     .padding(12.dp)
@@ -555,7 +530,7 @@ fun VaccineSection(
                         text = "Title: ${vaccine.title}",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = CharcoalGray
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     
@@ -563,13 +538,13 @@ fun VaccineSection(
                         text = "Importance:",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = CharcoalGray
                     )
                     vaccine.why_important.forEach { reason ->
                         Text(
                             text = "• $reason",
                             fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = CharcoalGray
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -578,13 +553,13 @@ fun VaccineSection(
                         text = "What to Expect:",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = CharcoalGray
                     )
                     vaccine.what_to_expect.forEach { expectation ->
                         Text(
                             text = "• $expectation",
                             fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = CharcoalGray
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -593,13 +568,13 @@ fun VaccineSection(
                         text = "Tips:",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = CharcoalGray
                     )
                     vaccine.tips.forEach { tip ->
                         Text(
                             text = "• $tip",
                             fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = CharcoalGray
                         )
                     }
                 }
@@ -609,7 +584,7 @@ fun VaccineSection(
 }
 
 /*
-*   Copyright 2025 Clarke Kiyingi
+*   Copyright 2025 Clarke K.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

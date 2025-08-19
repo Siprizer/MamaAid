@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mamaaid.data.LanguageManager
 import com.example.mamaaid.navigation.BottomNavigation
 import com.example.mamaaid.ui.screens.ChildScreen
 import com.example.mamaaid.ui.screens.FAQScreen
@@ -21,26 +22,29 @@ import com.example.mamaaid.ui.screens.MotherScreen
 import com.example.mamaaid.ui.theme.MamaAidTheme
 
 class MainActivity : ComponentActivity() {
+    private lateinit var languageManager: LanguageManager
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        languageManager = LanguageManager(this)
         enableEdgeToEdge()
         setContent {
             MamaAidTheme(dynamicColor = false) {
-                MamaAidApp()
+                MamaAidApp(languageManager = languageManager)
             }
         }
     }
 }
 
 @Composable
-fun MamaAidApp() {
+fun MamaAidApp(languageManager: LanguageManager) {
     val navController = rememberNavController()
     
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
-            BottomNavigation(navController = navController)
+            BottomNavigation(navController = navController, languageManager = languageManager)
         }
     ) { innerPadding ->
         NavHost(
@@ -49,23 +53,23 @@ fun MamaAidApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home") {
-                HomeScreen(navController = navController)
+                HomeScreen(navController = navController, languageManager = languageManager)
             }
             composable("mother") {
-                MotherScreen()
+                MotherScreen(languageManager = languageManager)
             }
             composable("child") {
-                ChildScreen()
+                ChildScreen(languageManager = languageManager)
             }
             composable("faq") {
-                FAQScreen()
+                FAQScreen(languageManager = languageManager)
             }
         }
     }
 }
 
 /*
-*   Copyright 2025 Clarke Kiyingi
+*   Copyright 2025 Clarke K.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

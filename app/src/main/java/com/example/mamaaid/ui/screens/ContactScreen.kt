@@ -12,17 +12,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.filled.LocalHospital
+import com.example.mamaaid.ui.theme.BackgroundWithImage
 
 @Composable
 fun ContactScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+    BackgroundWithImage {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
         Icon(
             imageVector = Icons.Default.LocalHospital,
             contentDescription = "Contact",
@@ -77,10 +78,11 @@ fun ContactScreen() {
             }
         }
     }
+    }
 }
 
 /*
-*   Copyright 2025 Clarke Kiyingi
+*   Copyright 2025 Clarke K.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

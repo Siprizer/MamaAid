@@ -21,18 +21,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mamaaid.ui.theme.BackgroundWithImage
 
 @Composable
 fun StagesScreen() {
     var selectedTab by remember { mutableStateOf(0) }
     
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    BackgroundWithImage {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
         //Title
         Text(
             text = "Health and development stages",
@@ -100,6 +101,7 @@ fun StagesScreen() {
             2 -> Baby2TabContent()
             3 -> StarTabContent()
         }
+    }
     }
 }
 
@@ -282,7 +284,7 @@ fun StarTabContent() {
 }
 
 /*
-*   Copyright 2025 Clarke Kiyingi
+*   Copyright 2025 Clarke K.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

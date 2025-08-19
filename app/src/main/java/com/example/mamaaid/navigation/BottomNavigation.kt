@@ -24,41 +24,44 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.mamaaid.ui.theme.BottomNavBackground
+import com.example.mamaaid.data.LanguageManager
+import com.example.mamaaid.ui.theme.WarmCream
+import com.example.mamaaid.ui.theme.CharcoalGray
+import com.example.mamaaid.ui.theme.SoftPink
 import kotlinx.coroutines.delay
 
 sealed class BottomNavItem(
     val route: String,
-    val title: String,
+    val titleKey: String,
     val icon: ImageVector
 ) {
     object Home : BottomNavItem(
         route = "home",
-        title = "Home",
+        titleKey = "home",
         icon = Icons.Default.Apps
     )
     
     object Mother : BottomNavItem(
         route = "mother",
-        title = "Mother",
+        titleKey = "mother",
         icon = Icons.Default.Person
     )
     
     object Child : BottomNavItem(
         route = "child",
-        title = "Child",
+        titleKey = "child",
         icon = Icons.Default.ChildCare
     )
     
     object FAQ : BottomNavItem(
         route = "faq",
-        title = "FAQ",
+        titleKey = "faq",
         icon = Icons.Default.HelpOutline
     )
     /*
     object Contact : BottomNavItem(
         route = "contact",
-        title = "Contact",
+        titleKey = "contact",
         icon = Icons.Default.LocalHospital
     )
     */
@@ -73,7 +76,7 @@ val bottomNavItems = listOf(
 )
 
 @Composable
-fun BottomNavigation(navController: NavController) {
+fun BottomNavigation(navController: NavController, languageManager: LanguageManager) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     
@@ -98,18 +101,22 @@ fun BottomNavigation(navController: NavController) {
     
     Box {
         NavigationBar(
-            containerColor = BottomNavBackground
+            containerColor = WarmCream
         ) {
             bottomNavItems.forEach { item ->
                 NavigationBarItem(
                     icon = {
                         Icon(
                             imageVector = item.icon,
-                            contentDescription = item.title
+                            contentDescription = languageManager.getTranslation(item.titleKey),
+                            tint = CharcoalGray
                         )
                     },
                     label = {
-                        Text(text = item.title)
+                        Text(
+                            text = languageManager.getTranslation(item.titleKey),
+                            color = CharcoalGray
+                        )
                     },
                     selected = currentRoute == item.route,
                     onClick = {
@@ -130,7 +137,14 @@ fun BottomNavigation(navController: NavController) {
                                 restoreState = false
                             }
                         }
-                    }
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = CharcoalGray,
+                        selectedTextColor = CharcoalGray,
+                        unselectedIconColor = CharcoalGray.copy(alpha = 0.6f),
+                        unselectedTextColor = CharcoalGray.copy(alpha = 0.6f),
+                        indicatorColor = SoftPink.copy(alpha = 0.3f)
+                    )
                 )
             }
         }
@@ -148,7 +162,7 @@ fun BottomNavigation(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = Color(0xFFFFFAB7),
+                            color = WarmCream,
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(16.dp)
@@ -157,7 +171,7 @@ fun BottomNavigation(navController: NavController) {
                         text = "⏳Sherman — set the Wayback Machine to version 1.0⌛🌪️",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.Black,
+                        color = CharcoalGray,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -166,9 +180,8 @@ fun BottomNavigation(navController: NavController) {
     }
 }
 
-
 /*
-*   Copyright 2025 Clarke Kiyingi
+*   Copyright 2025 Clarke K.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
