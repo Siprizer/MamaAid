@@ -28,6 +28,7 @@ import com.example.mamaaid.ui.theme.SoftPink
 import com.example.mamaaid.ui.theme.WarmCream
 import com.example.mamaaid.ui.theme.CharcoalGray
 import com.example.mamaaid.ui.theme.White
+import com.example.mamaaid.ui.theme.Typography
 import kotlinx.coroutines.launch
 
 @Composable
@@ -110,8 +111,7 @@ fun ChildScreen(languageManager: LanguageManager) {
             ) {
                 Text(
                     text = languageManager.getTranslation("child_title"),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = Typography.headlineLarge,
                     color = White
                 )
                 
@@ -144,9 +144,8 @@ fun ChildScreen(languageManager: LanguageManager) {
                 } else {
                     "Child health after birth includes a series of vaccinations to prevent disease. Uganda's standard immunization schedule requires multiple visits in the first 18 months. These vaccines are free under Uganda's Ministry of Health and protect children against TB, polio, diphtheria, pertussis, tetanus, hepatitis B, meningitis, pneumonia, rotavirus, measles, and yellow fever."
                 },
-                fontSize = 14.sp,
-                color = Color.White,
-                lineHeight = 20.sp
+                style = Typography.bodyMedium,
+                color = Color.White
             )
         }
 
