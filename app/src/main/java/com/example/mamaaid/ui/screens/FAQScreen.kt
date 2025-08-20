@@ -20,6 +20,7 @@ import com.example.mamaaid.ui.theme.BabyBlue
 import com.example.mamaaid.ui.theme.WarmCream
 import com.example.mamaaid.ui.theme.CharcoalGray
 import com.example.mamaaid.ui.theme.White
+import com.example.mamaaid.ui.theme.Typography
 
 @Composable
 fun FAQScreen(languageManager: LanguageManager) {
@@ -46,8 +47,7 @@ fun FAQScreen(languageManager: LanguageManager) {
                 ) {
                     Text(
                         text = languageManager.getTranslation("faq_title"),
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
+                        style = Typography.headlineLarge,
                         color = White
                     )
                     
@@ -177,8 +177,7 @@ fun FAQItem(
     Column {
         Text(
             text = question,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            style = Typography.titleMedium,
             color = CharcoalGray
         )
 
@@ -186,9 +185,8 @@ fun FAQItem(
 
         Text(
             text = answer,
-            fontSize = 14.sp,
-            color = CharcoalGray,
-            lineHeight = 20.sp
+            style = Typography.bodyMedium,
+            color = CharcoalGray
         )
     }
 }

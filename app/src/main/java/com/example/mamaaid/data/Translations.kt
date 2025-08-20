@@ -69,7 +69,7 @@ object TranslationRepository {
     private val lugandaTranslations = mapOf(
         // Home Screen
         "app_title" to "MamaAid",
-        "app_subtitle" to "Ekikulakulana kya obukyala",
+        "app_subtitle" to "Your pregnancy companion guide",
         "mother" to "Omukyala",
         "child" to "Omwana",
         "luganda" to "Luganda",
@@ -81,18 +81,18 @@ object TranslationRepository {
         "contact" to "Okukwatagana",
         
         // Mother Screen
-        "mother_title" to "Obulamu bwa Omukyala",
-        "pregnancy_weeks" to "Emirundi gya Obukyala",
+        "mother_title" to "Obulamu bw'omukyala",
+        "pregnancy_weeks" to "Emirundi gy'obukyala",
         "nutrition" to "Emmere",
         "exercise" to "Okukola Emizannyo",
-        "mental_health" to "Obulamu bw'Endowooza",
+        "mental_health" to "Obulamu bw'owoongo",
         "appointments" to "Enkolagana",
         "symptoms" to "Ebimenyetso",
         "emergency" to "Akabi",
         
         // Child Screen
-        "child_title" to "Okukula kwa Omwana",
-        "vaccines" to "Eddagala ly'Okuziyiza",
+        "child_title" to "Okukula kw'omwana",
+        "vaccines" to "Eddagala ly'omwana",
         "milestones" to "Ebikolebwa",
         "feeding" to "Okulya",
         "sleep" to "Okwebaka",

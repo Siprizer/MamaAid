@@ -28,6 +28,7 @@ import com.example.mamaaid.data.LanguageManager
 import com.example.mamaaid.ui.theme.WarmCream
 import com.example.mamaaid.ui.theme.CharcoalGray
 import com.example.mamaaid.ui.theme.SoftPink
+import com.example.mamaaid.ui.theme.Typography
 import kotlinx.coroutines.delay
 
 sealed class BottomNavItem(
@@ -113,10 +114,11 @@ fun BottomNavigation(navController: NavController, languageManager: LanguageMana
                         )
                     },
                     label = {
-                        Text(
-                            text = languageManager.getTranslation(item.titleKey),
-                            color = CharcoalGray
-                        )
+                                            Text(
+                        text = languageManager.getTranslation(item.titleKey),
+                        style = Typography.labelSmall,
+                        color = CharcoalGray
+                    )
                     },
                     selected = currentRoute == item.route,
                     onClick = {
@@ -169,8 +171,7 @@ fun BottomNavigation(navController: NavController, languageManager: LanguageMana
                 ) {
                     Text(
                         text = "⏳Sherman — set the Wayback Machine to version 1.0⌛🌪️",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium,
+                        style = Typography.bodyLarge,
                         color = CharcoalGray,
                         modifier = Modifier.fillMaxWidth()
                     )
