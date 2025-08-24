@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mamaaid"
+    namespace = "com.mamaaid.pregnancy"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.mamaaid"
+        applicationId = "com.mamaaid.pregnancy"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
