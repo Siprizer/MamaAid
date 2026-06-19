@@ -38,7 +38,6 @@ The goal is to present important health information in a simple, easy-to-underst
 - Kotlin
 - Jetpack Compose
 - Android Studio
-- Material Design 3
 
 ## Disclaimer
 
