@@ -62,6 +62,7 @@ fun ChildScreen(languageManager: LanguageManager) {
     var isOpv3Expanded by remember { mutableStateOf(false) }
     var isIpvExpanded by remember { mutableStateOf(false) }
     var isPcv3Expanded by remember { mutableStateOf(false) }
+    var isRota3Expanded by remember { mutableStateOf(false) }
     
     // 9 months
     var isMeaslesRubella1Expanded by remember { mutableStateOf(false) }
@@ -246,10 +247,10 @@ fun ChildScreen(languageManager: LanguageManager) {
                 isExpanded = is6WeeksExpanded,
                 onExpandedChange = { is6WeeksExpanded = it },
                 vaccines = listOf(
-                    VaccineInfo("pentavalent1_6wks", "Pentavalent-1 (DPT, HepB, Hib)", isPentavalent1Expanded) { isPentavalent1Expanded = it },
-                    VaccineInfo("opv1_6wks", "OPV1", isOpv1Expanded) { isOpv1Expanded = it },
-                    VaccineInfo("pcv1_6wks", "PCV1 (pneumococcal)", isPcv1Expanded) { isPcv1Expanded = it },
-                    VaccineInfo("rota1_6wks", "Rota1 (rotavirus)", isRota1Expanded) { isRota1Expanded = it }
+                    VaccineInfo("penta1_6wks", "Pentavalent Vaccine (DPT-HepB-Hib-1)", isPentavalent1Expanded) { isPentavalent1Expanded = it },
+                    VaccineInfo("opv1_6wks", "Oral Polio Vaccine (OPV-1)", isOpv1Expanded) { isOpv1Expanded = it },
+                    VaccineInfo("pcv1_6wks", "Pneumococcal Vaccine (PCV-1)", isPcv1Expanded) { isPcv1Expanded = it },
+                    VaccineInfo("rota1_6wks", "Rotavirus Vaccine (Rota-1)", isRota1Expanded) { isRota1Expanded = it }
                 ),
                 languageManager = languageManager
             )
@@ -264,10 +265,10 @@ fun ChildScreen(languageManager: LanguageManager) {
                 isExpanded = is10WeeksExpanded,
                 onExpandedChange = { is10WeeksExpanded = it },
                 vaccines = listOf(
-                    VaccineInfo("pentavalent2_10wks", "Pentavalent-2", isPentavalent2Expanded) { isPentavalent2Expanded = it },
-                    VaccineInfo("opv2_10wks", "OPV2", isOpv2Expanded) { isOpv2Expanded = it },
-                    VaccineInfo("pcv2_10wks", "PCV2", isPcv2Expanded) { isPcv2Expanded = it },
-                    VaccineInfo("rota2_10wks", "Rota2", isRota2Expanded) { isRota2Expanded = it }
+                    VaccineInfo("penta2_10wks", "Pentavalent Vaccine (DPT-HepB-Hib-2)", isPentavalent2Expanded) { isPentavalent2Expanded = it },
+                    VaccineInfo("opv2_10wks", "Oral Polio Vaccine (OPV-2)", isOpv2Expanded) { isOpv2Expanded = it },
+                    VaccineInfo("pcv2_10wks", "Pneumococcal Vaccine (PCV-2)", isPcv2Expanded) { isPcv2Expanded = it },
+                    VaccineInfo("rota2_10wks", "Rotavirus Vaccine (Rota-2)", isRota2Expanded) { isRota2Expanded = it }
                 ),
                 languageManager = languageManager
             )
@@ -282,10 +283,11 @@ fun ChildScreen(languageManager: LanguageManager) {
                 isExpanded = is14WeeksExpanded,
                 onExpandedChange = { is14WeeksExpanded = it },
                 vaccines = listOf(
-                    VaccineInfo("pentavalent3_14wks", "Pentavalent-3", isPentavalent3Expanded) { isPentavalent3Expanded = it },
-                    VaccineInfo("opv3_14wks", "OPV3", isOpv3Expanded) { isOpv3Expanded = it },
-                    VaccineInfo("ipv_14wks", "IPV (injectable polio booster)", isIpvExpanded) { isIpvExpanded = it },
-                    VaccineInfo("pcv3_14wks", "PCV3", isPcv3Expanded) { isPcv3Expanded = it }
+                    VaccineInfo("penta3_14wks", "Pentavalent Vaccine (DPT-HepB-Hib-3)", isPentavalent3Expanded) { isPentavalent3Expanded = it },
+                    VaccineInfo("opv3_14wks", "Oral Polio Vaccine (OPV-3)", isOpv3Expanded) { isOpv3Expanded = it },
+                    VaccineInfo("ipv_14wks", "Inactivated Polio Vaccine (IPV)", isIpvExpanded) { isIpvExpanded = it },
+                    VaccineInfo("pcv3_14wks", "Pneumococcal Vaccine (PCV-3)", isPcv3Expanded) { isPcv3Expanded = it },
+                    VaccineInfo("rota3_14wks", "Rotavirus Vaccine (Rota-3)", isRota3Expanded) { isRota3Expanded = it }
                 ),
                 languageManager = languageManager
             )
@@ -300,8 +302,8 @@ fun ChildScreen(languageManager: LanguageManager) {
                 isExpanded = is9MonthsExpanded,
                 onExpandedChange = { is9MonthsExpanded = it },
                 vaccines = listOf(
-                    VaccineInfo("mr1_9months", "Measles–Rubella 1", isMeaslesRubella1Expanded) { isMeaslesRubella1Expanded = it },
-                    VaccineInfo("yellowfever_9months", "Yellow Fever", isYellowFeverExpanded) { isYellowFeverExpanded = it }
+                    VaccineInfo("mr1_9mo", "Measles–Rubella Vaccine (MR-1)", isMeaslesRubella1Expanded) { isMeaslesRubella1Expanded = it },
+                    VaccineInfo("yf_9mo", "Yellow Fever Vaccine", isYellowFeverExpanded) { isYellowFeverExpanded = it }
                 ),
                 languageManager = languageManager
             )
@@ -316,7 +318,7 @@ fun ChildScreen(languageManager: LanguageManager) {
                 isExpanded = is18MonthsExpanded,
                 onExpandedChange = { is18MonthsExpanded = it },
                 vaccines = listOf(
-                    VaccineInfo("mr2_18months", "Measles–Rubella 2", isMeaslesRubella2Expanded) { isMeaslesRubella2Expanded = it }
+                    VaccineInfo("mr2_18mo", "Measles–Rubella Vaccine (MR-2)", isMeaslesRubella2Expanded) { isMeaslesRubella2Expanded = it }
                 ),
                 languageManager = languageManager
             )

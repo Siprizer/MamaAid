@@ -1,19 +1,26 @@
 package com.mamaaid.pregnancy.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import android.content.Intent
+import android.net.Uri
 import com.mamaaid.pregnancy.data.LanguageManager
 import com.mamaaid.pregnancy.ui.theme.BackgroundWithImage
 import com.mamaaid.pregnancy.ui.theme.BabyBlue
@@ -24,6 +31,9 @@ import com.mamaaid.pregnancy.ui.theme.Typography
 
 @Composable
 fun FAQScreen(languageManager: LanguageManager) {
+    var showPrivacyPolicy by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    
     BackgroundWithImage {
         Column(
             modifier = Modifier
@@ -154,18 +164,42 @@ fun FAQScreen(languageManager: LanguageManager) {
                     )
                     .padding(12.dp)
             ) {
-                Text(
-                    text = if (languageManager.currentLanguage == "Luganda") {
-                        "Emmere y'obukyala n'eddagala ly'okuziyiza ebyawulibwa okuva ku WHO (CC BY‑NC‑SA 3.0 IGO) n'Minisitule y'Obulamu ya Uganda. Ekikulakulana kino kya bbeeyi naye tekikola eddagala."
-                    } else {
-                        "Maternal nutrition and immunization content adapted from WHO (CC BY‑NC‑SA 3.0 IGO) and the Uganda Ministry of Health. This app is strictly informational and does not provide medical prescriptions"
-                    },
-                    fontSize = 8.8.sp,
-                    fontWeight = FontWeight.Thin,
-                    color = CharcoalGray,
-                    textAlign = TextAlign.Center
-                )
+                Column {
+                    Text(
+                        text = if (languageManager.currentLanguage == "Luganda") {
+                            "Emmere y'obukyala n'eddagala ly'okuziyiza ebyawulibwa okuva ku WHO (CC BY‑NC‑SA 3.0 IGO) n'Minisitule y'Obulamu ya Uganda. Ekikulakulana kino kya bbeeyi naye tekikola eddagala.App enno tekirina nkolagana n'ekitongole ky'ebyobulamu eky'ensi yonna ekya World Health Organization ne minisitule y'ebyobulamu mu Uganda."
+                        } else {
+                            "Maternal nutrition and immunization content adapted from WHO (CC BY‑NC‑SA 3.0 IGO) and the Uganda Ministry of Health. This app is strictly informational and does not provide medical prescriptions. This app has no connections or affiliations with WHO and The Uganda Ministry of Health."
+                        },
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = CharcoalGray,
+                        textAlign = TextAlign.Center
+                    )
+                    
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    Text(
+                        text = "Privacy Policy",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = CharcoalGray,
+                        textAlign = TextAlign.Center,
+                        textDecoration = TextDecoration.Underline,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showPrivacyPolicy = true }
+                    )
+                }
             }
+        }
+        
+        // Privacy Policy Dialog
+        if (showPrivacyPolicy) {
+            PrivacyPolicyDialog(
+                onDismiss = { showPrivacyPolicy = false },
+                context = context
+            )
         }
     }
 }
@@ -189,6 +223,262 @@ fun FAQItem(
             style = Typography.bodyMedium,
             color = CharcoalGray
         )
+    }
+}
+
+@Composable
+fun PrivacyPolicyDialog(
+    onDismiss: () -> Unit,
+    context: android.content.Context
+) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false
+        )
+    ) {
+        // Dark gray blurred background
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .clickable { onDismiss() },
+            contentAlignment = Alignment.Center
+        ) {
+            // Privacy Policy content box
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .background(
+                        color = WarmCream,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(16.dp)
+                    .clickable { /* Prevent click from propagating to background */ },
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Column(
+                    modifier = Modifier.verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Title
+                    Text(
+                        text = "Privacy Policy",
+                        style = Typography.headlineMedium,
+                        color = CharcoalGray,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    
+                    // Underline (0.5cm spacing) - centered
+                    Spacer(modifier = Modifier.height(20.dp)) // 0.5cm ≈ 20dp
+                    
+                    Box(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(2.dp)
+                            .background(Color.DarkGray)
+                    )
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    // Privacy Policy content
+                    Column {
+                        // Effective Date
+                        Text(
+                            text = "Effective Date: 10/08/2025",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        Text(
+                            text = "MamaAid (\"the App\") respects your privacy. This Privacy Policy explains how we handle information when you use our App.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 1
+                        Text(
+                            text = "1. Information We Collect",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "MamaAid does not collect or store any personal information such as names, email addresses, or medical records, and neither does it access or store any data from the users mobile device.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "This app uses analytics tools (such as Firebase Analytics) to collect anonymous usage statistics. This helps us understand how widely the app is used.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 2
+                        Text(
+                            text = "2. Use of Information",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "• To provide educational content on maternal and child health.\n• To improve the functionality and usability of the App.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 3
+                        Text(
+                            text = "3. Data Sharing",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "MamaAid does not sell, trade, or share user data with third parties.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "If any external content is provided (e.g., WHO or Uganda Ministry of Health guidelines), it is used under their respective licenses.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 4
+                        Text(
+                            text = "4. Children's Privacy",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "MamaAid is intended as a maternal and child health companion app. It does not knowingly collect personal information from children under 13.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 5
+                        Text(
+                            text = "5. Medical Disclaimer",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "MamaAid is for informational purposes only. It does not replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns.",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Section 6
+                        Text(
+                            text = "6. Contact Us",
+                            style = Typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Text(
+                            text = "If you have questions about this Privacy Policy, you may contact us at:",
+                            style = Typography.bodyMedium,
+                            color = CharcoalGray,
+                            textAlign = TextAlign.Start
+                        )
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "📧 ",
+                                style = Typography.bodyMedium,
+                                color = CharcoalGray
+                            )
+                            
+                            // Clickable email
+                            Text(
+                                text = "cdevs25@outlook.com",
+                                style = Typography.bodyMedium,
+                                color = BabyBlue,
+                                textDecoration = TextDecoration.Underline,
+                                modifier = Modifier.clickable {
+                                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                        data = Uri.parse("mailto:cdevs25@outlook.com")
+                                    }
+                                    context.startActivity(intent)
+                                }
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(55.dp))
+                    }
+                }
+            }
+        }
     }
 }
 
